@@ -1,0 +1,36 @@
+int numeroGuardado = 0;
+
+void setup() {
+  Serial.begin(9600);
+
+  pinMode(11, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(9, OUTPUT);
+  pinMode(8, OUTPUT);
+  pinMode(7, OUTPUT);
+}
+
+void mostrarNumero(int numero) {
+
+  digitalWrite(11, numero >= 1);
+  digitalWrite(10, numero >= 2);
+  digitalWrite(9, numero >= 3);
+  digitalWrite(8, numero >= 4);
+  digitalWrite(7, numero >= 5);
+}
+
+void loop() {
+
+  if (Serial.available()) {
+
+    numeroGuardado = Serial.parseInt();
+
+    if (numeroGuardado >= 0 && numeroGuardado <= 5) {
+
+      Serial.print("Recibido: ");
+      Serial.println(numeroGuardado);
+
+      mostrarNumero(numeroGuardado);
+    }
+  }
+}
